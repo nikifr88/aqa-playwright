@@ -5,7 +5,7 @@ test.describe('Register Modal', () => {
 
   test.beforeEach(async ({page}) => {
     const homePage = new HomePage(page);
-    homePage.open()
+    await homePage.open()
   })
 
   test('SignUp button is visible', async ({page}) => {
