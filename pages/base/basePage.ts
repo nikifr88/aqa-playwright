@@ -4,7 +4,7 @@ export class BasePage {
     constructor(protected page: Page) {}
 
     async navTo(url: string) {
-        await this.page.goto(url, { waitUntil: 'load' });
+        await this.page.goto(url, { timeout: 4000 });
     }
 
     async click(element: Locator) {
