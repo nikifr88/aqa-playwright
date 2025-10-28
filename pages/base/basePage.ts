@@ -4,7 +4,7 @@ export class BasePage {
     constructor(protected page: Page) {}
 
     async navTo(url: string) {
-        await this.page.goto(url, { timeout: 4000 });
+        await this.page.goto(url, {waitUntil: 'load'});
     }
 
     async click(element: Locator) {
@@ -16,6 +16,7 @@ export class BasePage {
     }
 
     async expectVisible(element: Locator, visible: boolean = true) {
+        await element.waitFor({state: 'visible'})
         visible ? await expect(element).toBeVisible() : await expect(element).not.toBeVisible();
     }
 
