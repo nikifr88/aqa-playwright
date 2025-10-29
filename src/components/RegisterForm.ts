@@ -1,8 +1,9 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from './base/basePage';
-import { HomePageLocators } from './locators/HomePage.locators';
+import { BasePage } from '../pages/base/basePage';
+import { HomePageLocators } from '../locators/HomePage.locators';
+import { getRandomEmail } from '../utils/helperFunctions';
 
-export class HomePage extends BasePage {
+export class RegisterForm extends BasePage {
     readonly signInButton: Locator;
     readonly signUpButton: Locator;
     readonly signInEmailInput: Locator;
@@ -36,12 +37,8 @@ export class HomePage extends BasePage {
         this.signUpRegisterButton = page.locator(HomePageLocators.signUpRegisterButton);
         this.signUpErrorInputs = page.locator(HomePageLocators.signUpErrorInputs);
 
-        this.emailForRegister = `aqa-${Date.now()}@example.com`;
+        this.emailForRegister = getRandomEmail();
         this.errorName = ['Name', 'Last name', 'Email', 'Password', 'Re-enter password'];
-    }
-
-    async open() {
-        await this.navTo('https://guest:welcome2qauto@qauto.forstudy.space/')
     }
 
     async expectRedirectToGarage() {
@@ -126,4 +123,4 @@ export class HomePage extends BasePage {
                 console.log('Error');
         }
     }
-    }
+}

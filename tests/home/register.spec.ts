@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
+import { HomePage } from '../../src/pages/HomePage';
 
 test.describe('Register Modal', () => {
 
@@ -11,31 +11,31 @@ test.describe('Register Modal', () => {
   test('SignUp button is visible', async ({page}) => {
     const homePage = new HomePage(page);
 
-    await homePage.signUpButtonVisible();
+    await homePage.registerForm.signUpButtonVisible();
   })
 
   test('User can signUp', async ({page}) => {
     const homePage = new HomePage(page);
 
-    await homePage.register(true, '', 'AQAName', 'AQALastName', homePage.emailForRegister, 'Qwerty!123');
+    await homePage.registerForm.register(true, '', 'AQAName', 'AQALastName', homePage.registerForm.emailForRegister, 'Qwerty!123');
   })
 
   test("User can't signUp with empty input", async ({page}) => {
     const homePage = new HomePage(page);
 
-    await homePage.register();
+    await homePage.registerForm.register();
   })
 
   test("User can't signUp with invalid data", async({page}) => {
     const homePage = new HomePage(page);
 
-    await homePage.register(false, 'invalid', '123', '123')
+    await homePage.registerForm.register(false, 'invalid', '123', '123')
   })
 
   test("User can't signUp with wrong length or don't match data", async ({page}) => {
     const homePage = new HomePage(page);
 
-    await homePage.register(false, 'wrong', 'a', 'a', 'tt', 'sd')
+    await homePage.registerForm.register(false, 'wrong', 'a', 'a', 'tt', 'sd')
   })
 
 })
