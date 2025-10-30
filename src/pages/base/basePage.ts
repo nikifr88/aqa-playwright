@@ -34,6 +34,6 @@ export class BasePage {
 
     async expectCurrUrl(url: string) {
         await this.page.waitForURL(`**${url}`, {timeout: 3000})
-        await expect(this.page.url()).toContain(url);
+        expect(this.page.url()).toContain(url);
     }
 }

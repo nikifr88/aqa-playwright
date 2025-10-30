@@ -11,7 +11,7 @@ export class HomePage extends BasePage {
     }
 
     async open() {
-        await this.navTo('https://guest:welcome2qauto@qauto.forstudy.space/')
+        await this.navTo('/')
     }
 
 }
