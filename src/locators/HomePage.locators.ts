@@ -4,6 +4,7 @@ export const HomePageLocators = {
     signInEmailInput: '#signinEmail',
     signInPasswordInput: '#signinPassword',
     signInRememberCheckbox: '#remember',
+    signInLoginBtn: '.modal-footer > .btn.btn-primary',
     registrationButton: '.modal-footer > .btn.btn-link',
     signUpNameInput: '#signupName',
     signUpLastNameInput: '#signupLastName',

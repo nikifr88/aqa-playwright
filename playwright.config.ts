@@ -43,18 +43,36 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      testMatch: 'home/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'], storageState: undefined },
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      testMatch: 'home/**/*.spec.ts',
+      use: { ...devices['Desktop Firefox'], storageState: undefined },
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      testMatch: 'home/**/*.spec.ts',
+      use: { ...devices['Desktop Safari'], storageState: undefined },
     },
+
+    {
+      name: 'setup',
+      testDir: 'tests/setup',
+      testMatch: 'auth.setup.ts',
+      metadata: { skipUI: true }
+    },
+
+    {
+      name: 'garageWithAuth',
+      testDir: 'tests/garage',
+      testMatch: '**/*.spec.ts',
+      dependencies: ['setup'],
+      use: { storageState: '.auth/user.json' }
+    }
 
     /* Test against mobile viewports. */
     // {
