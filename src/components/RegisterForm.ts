@@ -9,6 +9,7 @@ export class RegisterForm extends BasePage {
     readonly signInEmailInput: Locator;
     readonly signInPasswordInput: Locator;
     readonly signInRememberCheckbox: Locator;
+    readonly signInLoginBtn: Locator;
     readonly registrationButton: Locator;
     readonly signUpNameInput: Locator;
     readonly signUpLastNameInput: Locator;
@@ -28,6 +29,7 @@ export class RegisterForm extends BasePage {
         this.signInEmailInput = page.locator(HomePageLocators.signInEmailInput);
         this.signInPasswordInput = page.locator(HomePageLocators.signInPasswordInput);
         this.signInRememberCheckbox = page.locator(HomePageLocators.signInRememberCheckbox);
+        this.signInLoginBtn = page.locator(HomePageLocators.signInLoginBtn);
         this.registrationButton = page.locator(HomePageLocators.registrationButton);
         this.signUpNameInput = page.locator(HomePageLocators.signUpNameInput);
         this.signUpLastNameInput = page.locator(HomePageLocators.signUpLastNameInput);
@@ -65,6 +67,16 @@ export class RegisterForm extends BasePage {
             await this.expectInputErrors(errorType);
             await this.expectDisabled(this.signUpRegisterButton)
         }
+    }
+
+    async login(email: string = process.env.EMAIL!, pass: string = process.env.PASS!, remember: boolean = false){
+        await this.click(this.signInButton);
+        await this.fill(this.signInEmailInput, email);
+        await this.fill(this.signInPasswordInput, pass);
+        if(remember) this.signInRememberCheckbox.check();
+
+        await this.click(this.signInLoginBtn);
+        await this.expectCurrUrl('panel/garage');
     }
 
     async expectInputErrors(typeOfError: string) {

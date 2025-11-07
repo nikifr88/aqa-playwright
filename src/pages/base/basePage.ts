@@ -8,6 +8,7 @@ export class BasePage {
     }
 
     async click(element: Locator) {
+        await element.waitFor({ state: 'visible' });
         await element.click();
     }
 
@@ -35,5 +36,13 @@ export class BasePage {
     async expectCurrUrl(url: string) {
         await this.page.waitForURL(`**${url}`, {timeout: 3000})
         expect(this.page.url()).toContain(url);
+    }
+
+    async select(element: Locator, val: string) {
+        await element.selectOption(val);
+    }
+
+    async findLiInList(element: Locator, val: string) {
+        return element.filter({hasText: val}).first();
     }
 }
