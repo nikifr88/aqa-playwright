@@ -24,8 +24,8 @@ export const test = base.extend<{
   },
 
   
-  garagePage: async ({ page }, use) => {
-    const garagePage = new GaragePage(page);
+  garagePage: async ({ page, request }, use) => {
+    const garagePage = new GaragePage(page, request);
     await garagePage.open();
     await use(garagePage);
   },

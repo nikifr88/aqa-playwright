@@ -13,7 +13,6 @@ export class AddCarForm extends BasePage {
         super(page);
 
         this.addCarBtn = page.locator(GarageLocators.addCarBtn);
-        //this.addCarBtn = page.getByRole('button', { name: 'Add car' });
         this.brandCarSelect = page.locator(GarageLocators.brandCarSelect);
         this.modelCarSelect = page.locator(GarageLocators.modelCarSelect);
         this.mileageCarInput = page.locator(GarageLocators.mileageCarInput);
