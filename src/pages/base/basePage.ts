@@ -42,6 +42,10 @@ export class BasePage {
         await element.selectOption(val);
     }
 
+    async addFile(element: Locator, path: string) {
+        await element.setInputFiles(path);
+    }
+
     async findLiInList(element: Locator, val: string) {
         return element.filter({hasText: val}).first();
     }

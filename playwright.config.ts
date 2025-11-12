@@ -43,19 +43,19 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      testMatch: 'home/**/*.spec.ts',
+      testMatch: ['home/**/*.spec.ts', 'profile/**/*.spec.ts'],
       use: { ...devices['Desktop Chrome'], storageState: undefined },
     },
 
     {
       name: 'firefox',
-      testMatch: 'home/**/*.spec.ts',
+      testMatch: ['home/**/*.spec.ts', 'profile/**/*.spec.ts'],
       use: { ...devices['Desktop Firefox'], storageState: undefined },
     },
 
     {
       name: 'webkit',
-      testMatch: 'home/**/*.spec.ts',
+      testMatch: ['home/**/*.spec.ts', 'profile/**/*.spec.ts'],
       use: { ...devices['Desktop Safari'], storageState: undefined },
     },
 
