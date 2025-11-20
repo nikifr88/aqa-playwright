@@ -1,7 +1,5 @@
 #New link
-FROM node:20-bookworm
-
-RUN npx playwright@1.56.1 install --with-deps
+FROM mcr.microsoft.com/playwright:focal
 
 WORKDIR /app
 
