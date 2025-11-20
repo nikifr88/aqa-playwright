@@ -39,6 +39,7 @@ export class BasePage {
     }
 
     async select(element: Locator, val: string) {
+        await expect(element).toBeEnabled({ timeout: 15000 })
         await element.selectOption(val);
     }
 
