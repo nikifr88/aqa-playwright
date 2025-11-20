@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY package.json package-lock.json* ./
 
-RUN npm ci
+RUN npm ci --only=production && npm ci
 
 COPY . .
 
-CMD ["npx", "@playwright/test", "test"]
+CMD ["node", "./node_modules/@playwright/test/cli.js", "test"]
