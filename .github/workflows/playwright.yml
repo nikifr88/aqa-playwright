@@ -1,4 +1,4 @@
-name: Playwright Tests (сборка из Dockerfile)
+name: Playwright Tests
 
 on:
   push:
@@ -20,17 +20,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: |
-          docker build -t playwright-tests:latest .
+        run: docker build -t playwright-tests:latest .
 
       - name: Run Playwright tests (${{ matrix.env_type }})
-        run: |
-          docker run --rm \
-            --ipc=host \                  # обязательно для Chromium
-            --security-opt seccomp=unconfined \  # отключаем seccomp (иначе краш)
-            -e ENV=${{ matrix.env_type }} \
-            -w /app \
-            playwright-tests:latest
+        run: >-
+          docker run --rm
+          --ipc=host
+          --security-opt seccomp=unconfined
+          -e ENV=${{ matrix.env_type }}
+          -w /app
+          playwright-tests:latest
 
       - name: Upload Playwright report & traces
         if: always()
@@ -42,3 +41,4 @@ jobs:
             test-results/
             traces/
           retention-days: 30
+          if-no-files-found: warn
