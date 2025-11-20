@@ -31,7 +31,7 @@ jobs:
             playwright-e2e
 
       - name: Upload Playwright report & artifacts
-        if: always()  # загружаем даже при падении
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.env_type }}
