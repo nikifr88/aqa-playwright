@@ -1,11 +1,11 @@
-FROM mcr.microsoft.com/playwright:latest
+FROM mcr.microsoft.com/playwright/jammy:latest
 
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
 
-RUN npm ci --only=production && npm ci
+RUN npm ci
 
 COPY . .
 
-CMD ["node", "./node_modules/@playwright/test/cli.js", "test"]
+CMD ["npm", "test"]
