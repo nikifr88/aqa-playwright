@@ -8,49 +8,28 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      env:
+        ENV: ${{ matrix.env_type }}
+
     strategy:
       matrix:
         env_type: [stage, prod]
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: |
-            ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Run tests
+        run: npx playwright test
 
-      - name: Install Playwright browsers (if not cached)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright tests (${{ matrix.env_type }})
-        run: |
-          npx playwright test
-        env:
-          ENV: ${{ matrix.env_type }}
-
-      - name: Upload Playwright Report
+      - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.env_type }}-${{ github.run_id }}
-          path: |
-            playwright-report/
-            test-results/
-          retention-days: 30
+          name: report-${{ matrix.env_type }}
+          path: playwright-report/
