@@ -1,32 +1,44 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         env_type: [stage, prod]
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-      env:
-        ENV: ${{ matrix.env_type }}
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report-${{ matrix.env_type }}
-        path: playwright-report/
-        retention-days: 30
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t playwright-tests:latest .
+
+      - name: Run Playwright tests (${{ matrix.env_type }})
+        run: >-
+          docker run --rm
+          --ipc=host
+          --security-opt seccomp=unconfined
+          -e ENV=${{ matrix.env_type }}
+          -w /app
+          playwright-tests:latest
+
+      - name: Upload Playwright report & traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.env_type }}-${{ github.run_attempt }}
+          path: |
+            playwright-report/
+            test-results/
+            traces/
+          retention-days: 30
+          if-no-files-found: warn

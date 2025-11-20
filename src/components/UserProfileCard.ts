@@ -1,6 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from '../pages/base/basePage';
-import { ProfileLocators } from '../locators/Profile.locators';
+import { BasePage } from '../pages/base/basePage.ts';
 import { mockProfile } from '../mocks/profile.mock';
 
 export class UserProfileCard extends BasePage {

@@ -1,4 +1,4 @@
-import { test } from "../../src/fixtures/userGaragePage.fixture";
+import { test } from "../../src/fixtures/userGaragePage.fixture.ts";
 
 test.describe('Car form and List', () => {
 

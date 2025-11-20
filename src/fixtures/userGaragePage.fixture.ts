@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { GaragePage } from '../pages/GaragePage';
+import { GaragePage } from '../pages/GaragePage.ts';
 
 export const test = base.extend<{
   page: any;

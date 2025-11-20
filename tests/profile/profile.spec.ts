@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { HomePage } from '../../src/pages/HomePage';
-import { ProfilePage } from '../../src/pages/ProfilePage';
+import { HomePage } from '../../src/pages/HomePage.ts';
+import { ProfilePage } from '../../src/pages/ProfilePage.ts';
 
 test.describe('Profile Page', () => {
     let homePage: HomePage;

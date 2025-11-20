@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
-import { BasePage } from './base/basePage';
-import { EditProfileForm } from '../components/editProfileForm';
-import { UserProfileCard } from '../components/UserProfileCard';
+import { BasePage } from './base/basePage.ts';
+import { EditProfileForm } from '../components/EditProfileForm.ts';
+import { UserProfileCard } from '../components/UserProfileCard.ts';
 
 export class ProfilePage extends BasePage {
     editProfileForm: EditProfileForm;

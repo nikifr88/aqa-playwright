@@ -1,6 +1,6 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from '../pages/base/basePage';
-import { GarageLocators } from '../locators/Garage.locators';
+import { BasePage } from '../pages/base/basePage.ts';
+import { GarageLocators } from '../locators/Garage.locators.ts';
 
 export class CarsList extends BasePage {
     readonly carListUl: Locator;

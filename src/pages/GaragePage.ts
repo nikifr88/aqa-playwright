@@ -1,8 +1,8 @@
 import { APIRequestContext, Page } from '@playwright/test';
-import { BasePage } from './base/basePage';
-import { AddCarForm } from '../components/AddCarForm';
-import { CarsList } from '../components/CarsList';
-import { CarService } from '../service/car.service';
+import { BasePage } from './base/basePage.ts';
+import { AddCarForm } from '../components/AddCarForm.ts';
+import { CarsList } from '../components/CarsList.ts';
+import { CarService } from '../service/car.service.ts';
 
 export class GaragePage extends BasePage {
     addCarForm: AddCarForm;
