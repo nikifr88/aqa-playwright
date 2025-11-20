@@ -8,4 +8,4 @@ RUN npm ci
 
 COPY . .
 
-CMD ["npx", "--no", "playwright", "test"]
+CMD ["npm", "run", "test"]
