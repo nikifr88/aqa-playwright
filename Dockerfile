@@ -1,5 +1,7 @@
 #New link
-FROM mcr.microsoft.com/playwright:v1.50.0-noble
+FROM node:20-bookworm
+
+RUN npx playwright@1.56.1 install --with-deps
 
 WORKDIR /app
 
