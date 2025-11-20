@@ -1,6 +1,6 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from '../pages/base/basePage';
-import { ProfileLocators } from '../locators/Profile.locators';
+import { BasePage } from '../pages/base/basePage.ts';
+import { ProfileLocators } from '../locators/Profile.locators.ts';
 import path from 'path';
 
 export class EditProfileForm extends BasePage {

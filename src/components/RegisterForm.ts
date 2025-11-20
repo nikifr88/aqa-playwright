@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from '../pages/base/basePage';
-import { HomePageLocators } from '../locators/HomePage.locators';
-import { getRandomEmail } from '../utils/helperFunctions';
+import { BasePage } from '../pages/base/basePage.ts';
+import { HomePageLocators } from '../locators/HomePage.locators.ts';
+import { getRandomEmail } from '../utils/helperFunctions.ts';
 
 export class RegisterForm extends BasePage {
     readonly signInButton: Locator;

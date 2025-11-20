@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
-import { BasePage } from './base/basePage';
-import { RegisterForm } from '../components/RegisterForm';
+import { BasePage } from './base/basePage.ts';
+import { RegisterForm } from '../components/RegisterForm.ts';
 
 export class HomePage extends BasePage {
     registerForm: RegisterForm;
