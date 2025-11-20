@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Playwright Tests (сборка из Dockerfile)
 
 on:
   push:
@@ -8,28 +8,37 @@ on:
 
 jobs:
   test:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
-      env:
-        ENV: ${{ matrix.env_type }}
-
     strategy:
+      fail-fast: false
       matrix:
         env_type: [stage, prod]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Build Docker image
+        run: |
+          docker build -t playwright-tests:latest .
 
-      - name: Run tests
-        run: npx playwright test
+      - name: Run Playwright tests (${{ matrix.env_type }})
+        run: |
+          docker run --rm \
+            --ipc=host \                  # обязательно для Chromium
+            --security-opt seccomp=unconfined \  # отключаем seccomp (иначе краш)
+            -e ENV=${{ matrix.env_type }} \
+            -w /app \
+            playwright-tests:latest
 
-      - name: Upload report
+      - name: Upload Playwright report & traces
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: report-${{ matrix.env_type }}
-          path: playwright-report/
+          name: playwright-report-${{ matrix.env_type }}-${{ github.run_attempt }}
+          path: |
+            playwright-report/
+            test-results/
+            traces/
+          retention-days: 30
